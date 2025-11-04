@@ -10,6 +10,7 @@ import { TypeOrmModule } from "@nestjs/typeorm";
 
 //import entity
 import { ConnectionSample } from './entity';
+import { UsersModule } from './users/users.module';
 
 
 @Module({
@@ -24,7 +25,12 @@ import { ConnectionSample } from './entity';
      // entities: [__dirname + '/**/*.entity{.ts,.js}'],
       entities: [ConnectionSample],
       synchronize: true,
-    })
+      migrations : [
+        __dirname + '/database/migrations/master/*{.ts,.js}'
+      ],
+      migrationsTableName: "migrations",
+    }),
+    UsersModule
   ],
   controllers: [AppController, DatabaseConnectionController],
   providers: [AppService],
